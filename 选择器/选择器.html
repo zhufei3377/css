@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CSS选择器</title>
+    <style>
+        /* ID选择器 */
+        #demo-id {
+            background-color: #d1d1d1;
+        }
+
+        /* 类选择器 */
+        .demo-class {
+            background-color: #ededed;
+        }
+
+        /* 元素选择器（又叫类型选择器） */
+        p {
+            background-color: #d2d2d2;
+        }
+
+        /* 后代选择器（用空格表示） */
+        .progeny p {
+            color: red;
+        }
+
+        /* 子选择器（用 > 表示，只对儿子辈有效） */
+        .progeny > p {
+            letter-spacing: 5px;
+        }
+
+        /* 相邻同辈选择器（用 + 表示，出于浏览器性能考虑不会对前面的相邻同辈元素起作用） */
+        h3 + p {
+            font-weight: bold;
+        }
+
+        /* 一般同辈选择器（用 ～ 表示，出于浏览器性能考虑不会对前面的一般同辈元素起作用） */
+        h3 ~ p {
+            /* 注意和相邻同辈选择器样式相互影响，因为相邻同辈元素是特殊的一般同辈元素 */
+            color: #2334d0;
+        }
+
+        /* 通用选择器(用 * 表示，不常用) */
+        * {
+            font-size: 16px;
+        }
+
+        /* 属性选择器 */
+        abbr[title] {
+            border-bottom: 1px solid blue;
+        }
+        input[type="submit"] {
+            cursor: pointer;
+        }
+        a[href^="http"] {
+            /* 选择href属性以http开头的a元素 */
+            color: aqua;
+        }
+        img[src$=".jpg"] {
+            /* 选择src属性以.jpg结尾的img元素 */
+            border-radius: 50%;
+        }
+        a[href*="com"] {
+            /* 选择href属性包含com字符串的a元素 */
+            font-size: 20px;
+        }
+
+        /* 伪元素（用双冒号表示） */
+        /* ::first-letter */
+        /* ::first-line */
+        /* ::before */
+        /* ::after */
+        section::before {
+            content: '"';
+            font-size: 20px;
+        }
+        section::after {
+            content: '"';
+            font-size: 20px;
+        }
+        section p::first-letter {
+            float: left;
+            font-size: 30px;
+        }
+        section p::first-line {
+            text-transform: uppercase;
+        }
+
+        /* 伪类（用单冒号表示） */
+        /* 超链接状态伪类 */
+        a:link {
+            color: blue;
+        }
+        a:visited {
+            color: green;
+        }
+        a:hover, a:focus {
+            color: red;
+        }
+        a:active {
+            color: purple;
+        }
+        /* :target（匹配有ID属性的元素，即锚点元素。锚点定位之后高亮显示） */
+        .comment:target {
+            background-color: #fffec4;
+            font-size: 20px;
+        }
+        /* :not() 反选伪类，可以配合各种选择器放入括号中使用（伪元素和它自身除外） */
+        .comment:not(.comment:target) {
+            font-size: 14px;
+        }
+
+        /* 结构化伪类（常用伪类组合拳） */
+        /* 先搞清楚 ***-child 和 ***-of-type 的关系（以 span:first-child 和 span:first-of-type为例说明）*/
+        /* span:first-child 表示选中span的父元素（假设为div）下第一个子元素，如果该div下第一个子元素是span，则选中该span元素；如果该div下第一个子元素不是span，则匹配不到任何元素 */
+        /* span:first-of-type 表示选中span的父元素（假设为div）下第一个span元素，该span元素可以不是该div的第一个子元素；如果该div下没有span元素，则匹配不到任何元素 */
+
+        /* :nth-child() */
+        /* :nth-of-type() */
+
+        /* :nth-last-child() */
+        /* :nth-last-of-type() */
+
+        /* :only-child 选择指定元素且该元素在其父元素下唯一，如果父元素下有多个指定元素则匹配不到任何元素 */
+        /* :only-of-type 选择指定类型的唯一子元素 */
+
+        /* :first-child 等于:nth-child(1) */
+        /* :first-of-type 等于:nth-of-type(1) */
+        
+        /* :last-child 等于:nth-last-child(1) */
+        /* :last-of-type 等于:nth-last-of-type(1) */
+        
+        /* 选择表格第一行 */
+        tr:nth-child(1) {
+            font-weight: bold;
+        }
+        tr:first-child {
+            color: red;
+        }
+        tr:first-of-type {
+            letter-spacing: 2px;
+        }
+        /* 选择表格第三行 */
+        tr:nth-child(3) {
+            font-weight: bold;
+        }
+        tr:nth-of-type(3) {
+            font-weight: bold;
+        }
+        /* 选择表格倒数第一行 */
+        tr:nth-last-child(1) {
+            font-weight: bold;
+        }
+        tr:last-child {
+            color: red;
+        }
+        tr:last-of-type {
+            letter-spacing: 2px;
+        }
+        /* 选择表格倒数第三行 */
+        tr:nth-last-child(3) {
+            font-weight: bold;
+        }
+        tr:nth-last-of-type(3) {
+            font-weight: bold;
+        }
+        /* 选择表格奇数行 */
+        tr:nth-child(odd) {
+            background-color: yellow;
+        }
+        tr:nth-of-type(odd) {
+            background-color: yellow;
+        }
+        /* 选择表格偶数行 */
+        tr:nth-child(even) {
+            background-color: gray;
+        }
+        tr:nth-of-type(even) {
+            background-color: gray;
+        }
+        /* 按照2n+1规律选择表格行，分别是n等于0，1，2，3...时的计算结果，即：1，3，5，7...也就是奇数行 */
+        tr:nth-child(2n+1) {
+            background-color: yellow;
+        }
+        /* 选择表格前三行 */
+        tr:nth-child(-n+3) {
+            background-color: yellow;
+        }
+        /* 最常用相邻元素之间外边距设置 */
+        /* button {
+            margin-right: 20px;
+        }
+        button:last-child {
+            margin-right: 0px;
+        } */
+        button:not(:first-child) {
+            margin-left: 20px;
+        }
+        button:not(:first-of-type) {
+            margin-left: 20px;
+        }
+        button:not(:last-child) {
+            margin-right: 20px;
+        }
+        button:not(:last-of-type) {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="demo-id">ID选择器</div>
+    <div class="demo-class">类选择器</div>
+    <p>元素选择器（类型选择器）</p>
+    <div class="progeny">
+        <p>后代选择器（儿子辈）</p>
+        <div>
+            <p>后代选择器（孙子辈）</p>
+        </div>
+    </div>
+    <div>
+        <p>前面的一般同辈元素</p>
+        <p>前面的相邻同辈元素</p>
+        <h3>同辈选择器</h3>
+        <p>相邻同辈元素</p>
+        <p>一般同辈元素</p>
+    </div>
+    <p><abbr title="选择含有某些属性或属性是特定值的元素">属性选择器</abbr>选择带有title属性的abbr元素</p>
+    <a href="http://baidu.com">百度</a>
+    <h2>伪元素选择器示例</h2>
+    <section>
+        <p>I am happy to join with you today in what will go down in history as the greatest demonstration for freedom in the history of our nation. I am happy to join with you today in what will go down in history as the greatest demonstration for freedom in the history of our nation. score years ago, a great American, in whose symbolic shadow we stand today, signed the Emancipation Proclamation.</p>
+    </section>
+    <h2>伪类选择器示例</h2>
+    <a href="#">最常见的a标签伪类示例</a>
+    <div id="comment1" class="comment">comment1</div>
+    <div id="comment2" class="comment">comment2</div>
+    <div id="comment3" class="comment">comment3</div>
+    <table>
+        <tr> <td>test</td> </tr>
+        <tr> <td>test</td> </tr>
+        <tr> <td>test</td> </tr>
+        <tr> <td>test</td> </tr>
+        <tr> <td>test</td> </tr>
+    </table>
+    <div>
+        <button>提交</button>
+        <button>保存</button>
+        <button>取消</button>
+    </div>
+</body>
+</html>
