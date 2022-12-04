@@ -109,6 +109,31 @@
         .comment:not(.comment:target) {
             font-size: 14px;
         }
+        /* 表单伪类 */
+        input:required {
+            outline: 2px solid #000;
+        }
+        input:optional {
+            border-color: #ccc;
+        }
+        input:read-only {
+            background-color: #ccc;
+        }
+        input:read-write {
+            background-color: #fffec4;
+        }
+        input[type="email"]:valid {
+            background-color: greenyellow;
+        }
+        input[type="email"]:invalid {
+            background-color: red;
+        }
+        input[type="number"]:in-range {
+            background-color: greenyellow;
+        }
+        input[type="number"]:out-of-range {
+            background-color: red;
+        }
 
         /* 结构化伪类（常用伪类组合拳） */
         /* 先搞清楚 ***-child 和 ***-of-type 的关系（以 span:first-child 和 span:first-of-type为例说明）*/
@@ -235,6 +260,14 @@
     <div id="comment1" class="comment">comment1</div>
     <div id="comment2" class="comment">comment2</div>
     <div id="comment3" class="comment">comment3</div>
+    <label for="name">姓名：</label>
+    <input type="text" name="name" id="name" required>
+    <label for="sex">性别：</label>
+    <input type="text" name="sex" id="sex" value="男" readonly>
+    <label for="age">年龄：</label>
+    <input type="number" name="age" id="age" min="0" max="120">
+    <label for="email">Email：</label>
+    <input type="email" name="email" id="email">
     <table>
         <tr> <td>test</td> </tr>
         <tr> <td>test</td> </tr>
