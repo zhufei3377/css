@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>绝对定位</title>
+    <style>
+        /* 绝对定位会把元素拿出文档流，因此不会占用原来的位置。与此同时文档流中的其他元素会重新定位，仿佛绝对定位那个元素不存在一样 */
+        /* 绝对定位元素是相对于其包含块上下左右平移。平移绝对定位的元素极其灵活，可以把元素移动到页面的任何位置 */
+        /* 绝对定位的包含块是其最近的position的值不是static（也就是值为fixed、absolute、relative或sticky）的祖先元素 */
+        /* 如果没有这样一个定位祖先元素，那么就相对于文档的根元素（即html）定位 */
+        .container {
+            position: relative;
+        }
+        .box1, .box2, .box3 {
+            width: 33%;
+            height: 100px;
+            display: inline-block;
+            background-color: antiquewhite;
+        }
+        .box2 {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box1">
+            box1
+        </div>
+        <div class="box2">
+            box2
+        </div>
+        <div class="box3">
+            box3
+        </div>
+    </div>
+</body>
+</html>

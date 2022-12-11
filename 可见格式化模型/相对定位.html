@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>相对定位</title>
+    <style>
+        /* 设置元素的属性position: relative后该元素仍然会待在原来的地方。但此后可以通过设置 top、right、bottom、left来使该元素相对于原来的位置平移一定的距离 */
+        /* 无论是否位移，相对定位的元素仍然会在文档流中占用原来的位置。因此这样的位移会遮挡其他元素 */
+        div {
+            width: 33%;
+            height: 100px;
+            display: inline-block;
+            background-color: aquamarine;
+        }
+        .box2 {
+            position: relative;
+            top: 20px;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        box1
+    </div>
+    <div class="box2">
+        box2
+    </div>
+    <div class="box3">
+        box3
+    </div>
+</body>
+</html>
