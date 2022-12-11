@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>可见格式化模型</title>
+    <style>
+        /* html标签以生成盒子的类型分为：块级元素（block），行内元素（inline）和行内块元素（inline-block）。可以通过display属性改变生成盒子的类型 */
+        /* 块级元素：沿着垂直方向堆叠，垂直方向上的间距由上下外边距调节（注意外边距折叠） */
+        /* 行内元素：沿着水平方向排列，水平方向上的间距由水平方向的内边距、边框和外边距调节；垂直方向的外边距和宽度高度都无效 */
+        /* 行内块元素：像行内元素一样水平排列，但盒子内部像块级元素一样能够设置宽度、高度、垂直方向的内边距、外边距 */
+        /* 常用块级元素：div、p、h1～h6、ul、ol、dl、table、address、article */
+        /* 常用行内元素：span、a、b、strong等 */
+        /* 常用行内块元素：button、input、textarea、select、img、th、td */
+
+        div {
+            width: 300px;
+            height: 60px;
+            margin-bottom: 20px;
+            background-color: aquamarine;
+        }
+        span {
+            /* 无效设置 */
+            width: 300px;
+            height: 60px;
+            margin-bottom: 60px;
+            margin-top: 60px;
+            
+            /* 有效设置 */
+            margin-right: 20px;
+            margin-left: 20px;
+            padding: 10px;
+            border: 2px solid #e1e1e1;
+            background-color: antiquewhite;
+            /* 虽然对于行内元素来说设置高度不起作用，但是可以通过line-height调节垂直方向的间距 */
+            line-height: 60px;
+        }
+        button {
+            width: 60px;
+            height: 40px;
+        }
+        input {
+            width: 100px;
+            height: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <h3>块级元素示例</h3>
+    <div>块级元素div1</div>
+    <div>块级元素div2</div>
+
+    <h3>行内元素示例</h3>
+    <span>行内元素span1</span>
+    <span>行内元素span2</span>
+
+    <h3>行内块元素示例</h3>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <input type="text" name="text">
+    <input type="password" name="password">
+    <input type="email" name="email">
+    <input type="radio" name="radio">
+</body>
+</html>

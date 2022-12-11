@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>包含块</title>
+    <style>
+        /* 当一个元素的 width/height/padding/margin 设置为百分比的时候，包含块就是这些百分比值的计算依据 */
+        /* 确定元素的包含块要看元素是如何定位的 */
+        /* position: static，常规文档流静态定位，不指定position时实际就是静态定位 */
+        /* position: static/relative/sticky时，包含块为其最近的祖先块元素。该祖先快元素的display值可以是block、inline-block、table-cell、list-item */
+        /* position: absolute时，包含块为其最近的position的值不是static（也就是值为fixed、absolute、relative或sticky）的祖先元素 */
+        /* position: fixed时，包含块为视口 */
+
+        .container {
+            position: relative;
+            width: 600px;
+            height: 500px;
+            background-color: antiquewhite;
+            margin: auto;
+        }
+        .test {
+            width: 50%;
+            height: 50%;
+            background-color: cadetblue;
+            margin-left: auto;
+        }
+        .static {
+            position: static;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        .relative {
+            position: relative;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        .sticky {
+            position: sticky;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        .absolute {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        .fixed {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="test">
+            <div class="static">
+                静态定位，包含块是 test
+            </div>
+            <div class="relative">
+                相对定位，包含块是 test
+            </div>
+            <div class="sticky">
+                粘性定位，包含块是 test
+            </div>
+            <div class="absolute">
+                绝对定位，包含块是 container
+            </div>
+            <div class="fixed">
+                固定定位，包含块是视口（html元素）
+            </div>
+        </div>
+    </div>
+</body>
+</html>
