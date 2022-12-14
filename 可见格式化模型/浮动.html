@@ -42,6 +42,10 @@
             background-color: antiquewhite;
         }
         .media-block::after {
+            /* 为什么需要清除浮动？ */
+            /* 因为类为.media-block的div元素只包含了两个浮动的元素（.media-fig和.media-body），而浮动的元素会被拿出常规文档流不占空间 */
+            /* 这就相当于.media-block在文档中没有内容，所以浏览器无法为.media-block生成高度 */
+            /* 而清除一个元素时，浏览器会在该元素上方添加足够大的外边距，从而将该元素上边沿垂直向下推移到浮动元素的下方 */
             content: " ";
             display: block;
             clear: both;
