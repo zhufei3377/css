@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>多栏布局</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        article {
+            max-width: 60%;
+            margin: 0 auto;
+
+            /* columns属性是 column-count 和 column-width 的简写形式 */
+            /* 如果只设置了 column-count 浏览器会严格生成指定数量的栏；如果同时设置了 column-count 和 column-width，则前者为最大栏数，后者为最小栏宽 */
+
+            /* 在保证最小宽度为300px的前提下自动设置栏数 */
+            columns: 300px;
+
+            /* 在保证最小宽度为300px的前提下自动设置栏数（同上） */
+            column-width: 300px;
+
+            /* 3栏，自动设置栏宽 */
+            columns: 3;
+
+            /* 3栏，自动设置栏宽（同上） */
+            column-count: 3;
+
+            /* 最多3栏，每栏宽度最小300px */
+            columns: 3 300px;
+            
+            column-gap: 20px;
+        }
+        .source {
+            /* 跨栏 */
+            column-span: all; 
+        }
+        .ordinal {
+            vertical-align: super;
+            font-size: smaller;
+        }
+    </style>
+</head>
+<body>
+    <h1>The Moon</h1>
+    <article>
+        <span>The Moon is thought to have formed approximately 4.5 billion years ago, not long after Earth. There are several hypotheses for its origin; the most widely accepted explanation is that the Moon formed from the debris left over after a giant impact between Earth and a Mars-sized body called Theia.</span>
+        <p class="source">Text fetched from <cite><a href="https://en.wikipedia.org/wiki/Moon">“Moon” article on Wikipedia</a></cite> on <time datetime="2016-02-23">the 23<span class="ordinal">rd</span> of February&nbsp;2016.</time></p>
+    </article>
+</body>
+</html>
