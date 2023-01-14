@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>定位布局</title>
+    <style>
+        /* 定位不适合总体布局，因为它会把元素拉出正常的页面文档流。但是定位布局非常适合创建弹框，提示，对话框这些场景 */
+        /* 绝对定位的包含块是祖先 position 属性非 static 的元素，如果没有这样的元素，那就以html元素作为包含块 */
+        .modal {
+            /* 利用定位实现模态框垂直水平居中方式一 */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            /* 利用定位实现模态框垂直水平居中方式二 */
+            /* position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0; */
+            
+            width: 500px;
+            height: 300px;
+            border: 1px solid burlywood;
+            box-shadow: 10px 10px 10px #ededed;
+        }
+    </style>
+</head>
+<body>
+    这里是内容区域
+    <div class="modal">
+        这里是弹出层
+    </div>
+</body>
+</html>
