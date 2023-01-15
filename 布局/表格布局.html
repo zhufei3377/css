@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>表格布局</title>
+    <style>
+        /* 表格布局可以使用html的表格标签，也可以使用css的表格显示模式 */
+        /* 使用css表格显示样式实现导航条 */
+        .navbar ul {
+            width: 100%;
+            height: 40px;
+            padding: 0;
+            display: table;
+            table-layout: fixed;
+        }
+        .navbar li {
+            width: 25%;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            border: 1px solid burlywood;
+        }
+
+        /* 使用标签整体布局 */
+        table {
+            width: 100%;
+        }
+        td {
+            border: 1px solid #ededed;
+        }
+        .menu, .recent {
+            width: 10%;
+        }
+        .header, .footer {
+            height: 50px;
+            text-align: center;
+        }
+        .content {
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <nav class="navbar">
+            <ul>
+                <li>页面一</li>
+                <li>页面二</li>
+                <li>页面三</li>
+                <li>页面四</li>
+            </ul>
+        </nav>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td rowspan="3" class="menu">
+                    <div>菜单栏</div>
+                </td>
+                <td colspan="3" class="header">
+                    <div>标题栏</div>
+                </td>
+                <td rowspan="3" class="recent">
+                    <div>最近浏览</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="content">
+                    <div>内容区1</div>
+                </td>
+                <td class="content">
+                    <div>内容区2</div>
+                </td>
+                <td class="content">
+                    <div>内容区3</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="footer">
+                    <div>底边栏</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
