@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>行内块布局</title>
+    <style>
+        /* 和定位布局一样，行内块布局也不适合总体布局，但是行内块布局对于某些内容块却很有用。例：使用行内块布局实现媒体对象组件 */
+        .author-img {
+            width: 60px;
+            height: 60px;
+        }
+        /* vertical-align 属性是用来设置行内元素对齐方式的。说白了就是只对display属性值为inline、inline-block、inline-table、table-cell的元素有效 */
+        .author-img, .author-info {
+            display: inline-block;
+            /* display: inline-table; */
+            vertical-align: middle;
+        }
+        .author-name, .author-email {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <p class="author-meta">
+        <img class="author-img" src="head.jpg" alt="author">
+        <span class="author-info">
+            <span class="author-name">Fred F Zhu</span>
+            <span class="author-email">fred.f.zhu@test.com</span>
+        </span>
+    </p>
+</body>
+</html>
