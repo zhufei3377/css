@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>弹性盒布局</title>
+    <style>
+        .navbar ul {
+            width: 100%;
+            height: 40px;
+            padding: 0;
+            list-style: none;
+            background-color: burlywood;
+            display: flex;
+            /* 默认情况下水平排列，即 flex-direction 属性值为 row  */
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-end;
+        }
+        .navbar li {
+            width: 100px;
+            border: 1px solid #ededed;
+        }
+
+        /* 如果对于 Flexbox 某一子项的某一方向的外边距设置为 auto 那么该子项该方向的外边距会吃掉所有该方向的剩余空间。例：如下为第一项的右外边距 */
+        /* 如果所有方向的外边距都为 auto，那么该项会水平垂直居中 */
+        .navbar li:first-child {
+            margin-right: auto;
+            align-self: flex-start;
+        }
+
+        /* 弹性盒布局弹性体现在以下三个属性：flex-basis, flex-grow, flex-shrink。这三个属性作用于每个可伸缩项，而不是容器 */
+        /* flex-basis 控制可伸缩项在主轴方向上的基准大小，值可以是：像素值，百分比（相对容器的主轴），auto，content */
+        /* flex-basis: auto; 如果子项设置了width或height则以设置的宽高为准；如果子项没有设置width或height则根据子项内容确定大小 */
+        /* flex-basis: content; 根据子项内容确定大小，会忽略给子项设置的width或height */
+        .basis-container {
+            display: flex;
+            align-items: center;
+            width: 1000px;
+            height: 50px;
+            border: 1px solid yellowgreen;
+        }
+        .basis-item {
+            flex-basis: auto;
+            /* flex-basis: content; 如果启用这句样式，则下面的width和height的声明将被忽略 */
+            width: 500px;
+            height: 30px;
+            border: 1px solid #ededed;
+        }
+
+        /* flex-grow 伸展弹性系数，在通过 flex-basis 为子项设置了基准大小之后如果还有剩余空间 flex-grow 表示如何伸展填满剩余空间。默认值为0，表示从 flex-basis 取得尺寸之后不伸展 */
+        .short {
+            width: 200px;
+            height: 50px;
+            border: 1px solid #ededed;
+        }
+        .long {
+            width: 400px;
+            height: 50px;
+            border: 1px solid #ededed;
+        }
+        .grow-container-basis {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 1000px;
+            height: 80px;
+            border: 1px solid burlywood;
+        }
+        .grow-container-basis div {
+            flex-basis: auto;
+            /* short宽200px，long宽400px，容器宽1000px。short和long各自分剩余空间（400px）的一半（因为只有两个子项，并且这两个子项各占剩余空间的比例相同） */
+            flex-grow: 1;
+        }
+        /* 纯粹按伸缩系数分配大小 */
+        .grow-container-no-basis {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 1000px;
+            height: 80px;
+            border: 1px solid burlywood;
+        }
+        .grow-container-no-basis div {
+            width: 400px;
+            height: 50px;
+            border: 1px solid #ededed;
+            /* flex 这个简写属性可以一次设置 flex-grow flex-shrink flex-basis 顺序就是这样，伸展 收缩 基准，中间空格隔开 */
+            /* 这里设置了 flex-basis: 0px; 就意味着不会从flex-basis获取基准尺寸，所有空间将会留到第二步根据伸缩系数来分配（注意：flex-basis 的值必须带单位） */
+            flex: 1 0 0px;
+            /* 相当于设置了如下属性 */
+            /* flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 0px; */
+        }
+        /* 如果想让第一个项目占据的宽度是其他项目的两倍，就把该项目的 flex-grow 设置为2 */
+        .grow-container-no-basis div:first-of-type {
+            flex-grow: 2;
+        }
+
+        /* flex-shrink 收缩弹性系数，在通过 flex-basis 为子项设置了基准大小之后如果空间不够 flex-shrink 表示如何收缩。默认值为1，表示所有子项都会以自己的基准尺寸等比例收缩 */
+        /* 容器总宽度1000px，item1宽度800px，item2宽度500px，超出容器总宽度300px */
+        .shrink-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 1000px;
+            height: 80px;
+            border: 1px solid burlywood;
+        }
+        .item1 {
+            width: 800px;
+            height: 50px;
+            border: 1px solid #ededed;
+            flex-basis: auto;
+            flex-shrink: 2;
+            /* 收缩的宽度：(800*2)/((800*2)+(500*1)) * 300 = 228.5 */
+        }
+        .item2 {
+            width: 500px;
+            height: 50px;
+            border: 1px solid #ededed;
+            flex-basis: auto;
+            flex-shrink: 1;
+            /* 收缩的宽度：(500*1)/((800*2)+(500*1)) * 300 = 71.5 */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li>页面一</li>
+            <li>页面二</li>
+            <li>页面三</li>
+            <li>页面四</li>
+        </ul>
+    </nav>
+
+    <h3>flex-basis 示例</h3>
+    <div class="basis-container">
+        <div class="basis-item">Basis Item</div>
+    </div>
+
+    <h3>flex-grow 示例（从flex-basis获取基准尺寸后按比例分剩余空间）</h3>
+    <div class="grow-container-basis">
+        <div class="short">Short</div>
+        <div class="long">Looooooooong</div>
+    </div>
+
+    <h3>flex-grow 示例（纯粹按伸缩系数分配大小）</h3>
+    <div class="grow-container-no-basis">
+        <div>Short</div>
+        <div>Looooooooong</div>
+    </div>
+
+    <h3>flex-shrink 示例</h3>
+    <div class="shrink-container">
+        <div class="item1">Item1</div>
+        <div class="item2">Item2</div>
+    </div>
+</body>
+</html>
