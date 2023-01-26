@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>网格布局</title>
+    <style>
+        /* 二维布局：Grid Layout（Grid之前的布局技术（除表格外）都是基于把元素排成行或列的思想，本质上它们都是一维布局技术） */
+        /* 网格布局中的术语：网格容器，网格线，网格单元，网格轨道，网格行，网格列，网格区，网格项 */
+        /* 网格容器：被设置为 display: grid 的元素叫网格容器 */
+        /* 网格线：划分网格容器的线称为网格线 */
+        /* 网格单元：网格容器被网格线划分成不同的单元格叫网格单元 */
+        /* 网格轨道：网格线之间的水平或垂直区域叫网格轨道，水平方向的网格轨道叫网格行，垂直方向的网格轨道叫网格列 */
+        /* 网格区：由相邻网格单元组合起来的矩形区块叫网格区 */
+        /* 网格项：网格容器的直接子元素叫网格项，网格项可以放在网格区内 */
+
+        /* 定义一个2行4列，行高100px，4列等宽，网格间距10px的网格 */
+        .wrapper {
+            display: grid;
+            grid-template-rows: 100px 100px;
+            /* 指定行列大小时可以混用不同的长度单位，如下，靠两边的两列宽度为200px，第二列占总宽度的20%，第三列占据剩下的全部空间。fr大小的计算会在计算完其他长度之后再确定 */
+            /* grid-template-rows: 200px 20% 1fr 200px; */
+            /* 每个fr都表示可以占用整个宽度的1/4（因为总共4个fr），如果再添加一个1fr，那么每个fr将占用总宽度的1/5 */
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+
+            /* 网格轨道间距可以用如下两个属性来设置 */
+            row-gap: 10px;
+            column-gap: 10px;
+        }
+        .cell {
+            border: 1px solid #ededed;
+            background-color: antiquewhite;
+        }
+
+        .grid-wrapper {
+            display: grid;
+            /* grid-template-rows: auto auto auto; */
+            /* 因为网格轨道在DOM中没有对应的元素，所以不能通过max-width，min-width之类的属性指定大小，但可以使用minmax()函数实现相同的功能 */
+            /* 如下声明表示后两行至少4em高并且占据相等的可用空间 */
+            grid-template-rows: auto minmax(4em, 1fr) minmax(4em, 1fr);
+            grid-template-columns: repeat(5, 1fr);
+            /* 可以使用 grid-template 属性将行列的声明放在一起，前面是行定义，后面是列定义，中间用斜杠（/）分隔 */
+            /* grid-template: auto minmax(4em, 1fr) minmax(4em, 1fr) / repeat(5, 1fr); */
+            border: 1px solid yellowgreen;
+
+            /* 与Flex类似，justify-items 和 align-items 作用于网格容器，设置所有网格项的对齐方式；justify-self 和 align-self 作用于个别网格项（默认值都是stretch拉伸填满网格区） */
+            justify-items: center;
+            align-items: center;
+
+            /* 在网格轨道没有占满网格容器的情况下可以使用 justify-content（水平）和 align-content（垂直）来对齐网格轨道 */
+            /* width: 1000px;
+            grid-template-columns: repeat(5, 100px);
+            justify-content: space-between;
+            align-content: stretch; */
+        }
+        .grid-header, .story {
+            border: 1px solid #ededed;
+            background-color: blanchedalmond;
+        }
+        .grid-header {
+            grid-row-start: 1;
+            grid-row-end: 4;
+            grid-column-start: 1;
+            grid-column-end: 2;
+            /* 简化版 */
+            /* grid-row: 1/4;
+            grid-column: 1/2; */
+
+            /* 假如只知道这个网格项应该跨所有行，但不知道有多少行，-1就表示最后一行的终止网格线的编号 */
+            /* 跨越所有行 */
+            grid-row: 1/-1;
+            /* 等价于：grid-column: 1/2; 因为默认跨一个网格单元 */
+            grid-column: 1;
+
+            /* 最后一个终极属性：grid-area，可以进一步简化网格项的声明。这个属性的值最多4个，由斜杠分隔。分别表示grid-row-start，grid-column-start，grid-row-end，grid-column-end */
+            grid-area: 1/1/4/2;
+            /* 省略了第四个参数，即 grid-column-end 的值，表示在列方向上只跨一个单元 */
+            grid-area: 1/1/-1;
+
+            /* header水平居中，垂直拉伸 */
+            justify-self: center;
+            align-self: stretch;
+
+        }
+        .story-featured {
+            grid-area: 1/2/2/4;
+            /* 图片拉伸铺满 */
+            justify-self: stretch;
+            align-self: stretch;
+        }
+
+        /* 网格的自动定位 grid-auto-flow属性，稀疏模式，稠密模式（略） */
+
+        /* 网格模板区示例 */
+        .grid-template {
+            display: grid;
+            grid-template-columns: 20% 1fr 1fr 1fr;
+            grid-template-areas: "hd st1 . st2" "hd st1 . st2";
+        }
+        .grid-template > * {
+            border: 1px solid burlywood;
+        }
+        .template-header {
+            grid-area: hd;
+        }
+        .template-story:nth-of-type(1) {
+            grid-area: st1;
+        }
+        .template-story:nth-of-type(2) {
+            grid-area: st2;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="cell">1</div>
+        <div class="cell">2</div>
+        <div class="cell">3</div>
+        <div class="cell">4</div>
+        <div class="cell">5</div>
+        <div class="cell">6</div>
+        <div class="cell">7</div>
+        <div class="cell">8</div>
+    </div>
+
+    <h3>一个新闻稿网页例子</h3>
+    <div class="grid-wrapper">
+        <header class="grid-header">
+            <h2>栏目</h2>
+        </header>
+        <article class="story story-featured">
+            头条图片
+        </article>
+        <article class="story">story</article>
+        <article class="story">story</article>
+        <article class="story">story</article>
+        <article class="story">story</article>
+        <article class="story">story</article>
+        <article class="story">story</article>
+        <article class="story">story</article>
+        <article class="story">story</article>
+        <article class="story">story</article>
+        <article class="story">story</article>
+    </div>
+    <h3>网格模版区</h3>
+    <div class="grid-template">
+        <header class="template-header">hd</header>
+        <article class="template-story">st1</article>
+        <article class="template-story">st2</article>
+        <div class="ad ad1">广告1</div>
+        <div class="ad ad2">广告2</div>
+    </div>
+</body>
+</html>
