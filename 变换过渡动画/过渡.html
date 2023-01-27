@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>过渡</title>
+    <style>
+        /* 过渡是一种动画，可以从一种状态过渡到另一种状态。比如按钮从常规状态变成按下状态 */
+        /* 过渡会自动双向运行，只要状态一反转（比如释放鼠标按键）反向动画就会运行 */
+        /* 使用过渡就涉及时间单位：毫秒（ms）和秒（s）页面组件的过渡应该尽量在0.3s内完成，其他视觉效果用时可以稍长一些。 */
+
+        button {
+            border: 0;
+            padding: 0.5em 1em;
+            color: #fff;
+            border-radius: 0.25em;
+            background-color: red;
+            /* 过渡属性 transition 是一个简写形式，可以一次性设置多个属性和过渡持续时间。如下就是设置所有属性的过渡持续时间为150ms */
+            transition: all 150ms;
+            /* 不简写形式 */
+            transition-property: all;
+            transition-duration: 150ms;
+            /* 如果不是针对所有属性应用过渡，只是针对背景颜色和变换属性应用过渡，可以像下面这样 */
+            transition: background-color 150ms, transform 150ms;
+
+            /* 指定过渡计时函数的属性是 transition-timing-function，有一些关键字分别代表不同类型的缓动函数（默认值为ease） */
+            /* ease 缓和的 */
+            /* linear 线性的，过渡动画每一帧速度相同 */
+            /* ease-in 开始慢，后面快 */
+            /* ease-out 开始快，后面慢 */
+            /* ease-in-out 两头慢，中间快 */
+            transition-timing-function: ease-in-out;
+            /* 可以在指定过渡时声明缓动函数 */
+            transition: background-color 150ms ease-in, transform 150ms ease-out;
+
+            /* 在底层，控制速度变化的数学函数基于三次贝塞尔函数生成，每个关键字都是这个函数带特定参数的简写形式 */
+            /* 在CSS中可以使用 cubic-bezier() 函数作为缓动值。我们可以给这个函数传入自己的参数来自定义缓动函数，cubic-bezier()函数需要4个参数即两对x，y坐标，分别代表调整曲线的两个控制点 */
+            /* 在 cubic-bezier.com 网上有现成的工具，可以调整创建自己的缓动函数 */
+        }
+        button:active {
+            background-color: rgb(197, 6, 6);
+            transform: translateY(0.25em);
+        }
+    </style>
+</head>
+<body>
+    <button>Click Me</button>
+</body>
+</html>

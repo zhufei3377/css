@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>变换</title>
+    <style>
+        /* 变换包括旋转，变形，平移，缩放。变换之后的元素还在原来的位置上，只是它们上“影响”已经变换了，因此变换不会影响页面的布局（但会影响溢出，如果变换的元素超出了overflow会出现滚动条） */
+
+        /* 旋转 */
+        .box {
+            width: 100px;
+            height: 100px;
+            border: 1px solid burlywood;
+        }
+        /* 旋转45度 */
+        .box {
+            transform: rotate(45deg);
+        }
+        /* 不以中心点（原点）旋转45度 */
+        .box {
+            /* transform-origin 属性有三个值，分别代表x、y和z轴 */
+            transform-origin: 10px 10px 10px;
+            transform: rotate(45deg);
+        }
+
+        /* 平移 */
+        /* 平移自身宽度一半的距离 */
+        .box {
+            /* 沿一个方向平移可以使用translateX()或translateY()，同时沿两个方向平移使用 translate() */
+            /* 使用 translate() 函数时需要传入两个坐标值，分别代表x轴和y轴平移的距离。这两个值可以是任意长度单位（像素，em，百分比） */
+            /* 注意：百分比这时候是相对于元素自身大小，而不是包含块大小。因此不必知道元素大小就可以让它移动自身宽度一半的距离 */
+            transform: translate(50%, 50%);
+        }
+
+        /* 多重变换 */
+        .box {
+            /* 多重变换的值是以空格分隔的列表形式，按照声明的顺序依次变换（变换顺序会影响结果，需要提前规划好） */
+            transform: translate(50%, 50%) rotate(45deg);
+        }
+
+        /* 修改变换 */
+        .box:hover {
+            /* 声明多个变换以后，如果想增加新变换，不能直接在原来的基础上添加，而是要重新声明整套变换 */
+            /* transform: rotate(45deg); */
+            transform-origin: 10px 10px;
+            transform: translate(50%, 50%) rotate(90deg);
+        }
+
+        /* 缩放 */
+        /* 缩放可以使用scale()函数，这个函数也有对应的x轴和y轴的变体：scaleX()，scaleY() */
+        /* scale() 函数很简单，它的参数是没有单位的数值，可以传一个参数，也可以传两个参数，传入一个参数表示在x轴和y轴同时缩放 */
+        .box2 {
+            width: 100px;
+            height: 100px;
+            margin: auto;
+            border: 1px solid burlywood;
+        }
+        /* 放大一倍 */
+        .box2 {
+            transform: scale(2);
+            /* 等价于如下 */
+            /* transform: scale(2, 2);
+            transform: scaleX(2) scaleY(2); */
+        }
+        /* 压扁 */
+        .box2 {
+            transform: scale(1, 0.5);
+        }
+
+        /* 变形 */
+        /* 变形可以使用skew()函数，这个函数也有对应的x轴和y轴的变体：skewX()，skewY() */
+        .list {
+            list-style: none;
+        }
+        .list li {
+            border: 1px solid yellowgreen;
+            width: 200px;
+            height: 50px;
+        }
+        .list li:nth-child(odd) {
+            /* transform: skew(15deg, 0deg); */
+            transform: skewX(15deg);
+        }
+        .list li:nth-child(even) {
+            transform: skewX(-15deg);
+        }
+
+        /* 二维矩阵变换 matrix() 函数，6个参数，主要用于JS编程调用，需要数学功力（略） */
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="box2"></div>
+    <ul class="list">
+        <li>zhangsan</li>
+        <li>zhangsan</li>
+        <li>zhangsan</li>
+        <li>zhangsan</li>
+        <li>zhangsan</li>
+    </ul>
+</body>
+</html>
