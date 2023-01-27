@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>动画</title>
+    <style>
+        /* ********** 一个会滚动的方块 ********** */
+        /* 第一步：创建将要被关键帧块连接的元素（基本样式） */
+        .logo {
+            color: #663399;
+            font-size: 2em;
+            margin: 1em 0;
+        }
+        .logo-box {
+            display: inline-block;
+            width: .74em;
+            height: .74em;
+            background-color: #663399;
+        }
+
+        /* 第二步：创建动画关键帧块 */
+        /* CSS动画需要使用 @keyframes 规则来定义并命名一个关键帧序列，然后再通过 animation-* 属性将该序列连接到一个或多个规则 */
+        /* 声明一个关键帧序列名为 roll（不要是CSS中的关键字），通过关键帧选择符来选择时间点（即表示进度的百分比） */
+        @keyframes roll {
+            from {
+                transform: translateX(-100%);
+                /* 这里设置的动画计时函数（animation-timing-function）和过渡计时函数类似，用来控制这一帧与下一帧之间的过渡变化（下同） */
+                animation-timing-function: ease-in-out;
+            }
+            20% {
+                transform: translateX(-100%) skewX(15deg);
+            }
+            28% {
+                transform: translateX(-100%) skewX(0deg);
+                animation-timing-function: ease-out;
+            }
+            45% {
+                transform: translateX(-100%) skewX(-5deg) rotate(20deg) scaleY(1.1);
+                animation-timing-function: ease-in-out;
+            }
+            50% {
+                transform: translateX(-100%) rotate(45deg) scaleY(1.1);
+                animation-timing-function: ease-in;
+            }
+            60% {
+                transform: translateX(-100%) rotate(90deg);
+            }
+            65% {
+                transform: translateX(-100%) rotate(90deg) skewY(10deg);
+            }
+            70% {
+                transform: translateX(-100%) rotate(90deg) skewY(0deg);
+            }
+            to {
+                transform: translateX(-100%) rotate(90deg);
+            }
+        }
+
+        /* 第三步：将关键帧块连接到元素 */
+        .logo-box {
+            /* 动画名称 */
+            animation-name: roll;
+            /* 动画时长 */
+            animation-duration: 1.5s;
+            /* 动画运行前延时1秒 */
+            animation-delay: 1s;
+            /* 动画播放3次，可以无限次：infinite */
+            animation-iteration-count: 3;
+            /* 缓动函数：线性（每帧速度相同），可以在关键帧块中覆盖这个设置 */
+            animation-timing-function: linear;
+            /* 填充模式，告诉浏览器在动画运行之前或之后如何处理动画 */
+            animation-fill-mode: backwards;
+            
+            /* 以上这些属性可以简写为如下 */
+            /* animation: roll 1.5s 1s 3 linear backwards; */
+
+            /* 让小方块的旋转中心点位于右下角 */
+            transform-origin: bottom right;
+        }
+
+        /* ********** 敬礼 ********** */
+        /* ********** 文件上传 ********** */
+        /* ********** 翻牌子 ********** */
+
+    </style>
+</head>
+
+<body>
+    <h1 class="logo">
+        <span class="logo-box"></span>
+        <span class="logo-text">Box</span>
+    </h1>
+</body>
+
+</html>
