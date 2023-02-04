@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>动画-滚动的方块</title>
+    <style>
+        .hello {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #ccc;
+            /* 这个图片由7个不同图像组成，每个图像尺寸都是200*200，图片总尺寸为200*1400。最开始显示最底下的图像 */
+            background: url(images/step-animation.png) no-repeat 0px -1200px;
+            transition: background-position 0s 0.3s steps(6, start);
+        }
+        /* 鼠标放到图片上的时候用0.6s过渡到最上面的图片 */
+        .hello:hover {
+            transition-delay: 0;
+            transition-duration: 0.6s;
+            background-position: 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="hello"></div>
+</body>
+</html>
