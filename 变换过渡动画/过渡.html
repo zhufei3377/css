@@ -40,9 +40,71 @@
             background-color: rgb(197, 6, 6);
             transform: translateY(0.25em);
         }
+
+        /* 过渡到最大高度的例子 */
+        /* 基本样式 */
+        .expando {
+            min-width: 9em;
+            max-width: 25em;
+            margin: 20px 0px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        .expando-title {
+            margin: 0;
+            margin-bottom: .5em;
+            vertical-align: middle;
+        }
+        .expando ol {
+            margin: 0;
+        }
+        .expando li {
+            border-bottom: 1px solid #ccc;
+            line-height: 1.5em;
+        }
+
+        /* 过渡样式设置 */
+        .expando-list {
+            overflow: hidden;
+            transition: all .3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+        }
+        .is-expanded .expando-list {
+            max-height: 24em;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
-    <button>Click Me</button>
+    <button onClick="onToggle()">Toggle</button>
+    <div class="expando">
+        <h2 class="expando-title">车队积分榜</h2>
+        <ol>
+            <li>梅赛德斯</li>
+            <li>红牛</li>
+            <li>法拉利</li>
+        </ol>
+        <ol class="expando-list" start="4">
+            <li>阿斯顿马丁</li>
+            <li>雷诺</li>
+            <li>迈凯轮</li>
+            <li>阿尔法罗密欧</li>
+            <li>小红牛</li>
+            <li>威廉姆斯</li>
+            <li>哈斯</li>
+        </ol>
+    </div>
+    <script>
+        function onToggle() {
+            var expando = document.querySelector('.expando');
+            if (/(^|\s)is-expanded(\s|$)/.test(expando.className)) {
+                expando.className = expando.className.replace(' is-expanded', '');
+            } else {
+                expando.className += ' is-expanded';
+            }
+        }
+    </script>
 </body>
 </html>
