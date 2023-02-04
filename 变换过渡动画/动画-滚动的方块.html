@@ -3,25 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>动画</title>
+    <title>动画-滚动的方块</title>
     <style>
-        /* ********** 一个会滚动的方块 ********** */
-        /* 第一步：创建将要被关键帧块连接的元素（基本样式） */
-        .logo {
+        .box {
             color: #663399;
             font-size: 2em;
-            margin: 1em 0;
-        }
-        .logo-box {
-            display: inline-block;
-            width: .74em;
-            height: .74em;
-            background-color: #663399;
+            margin: 1em;
         }
 
-        /* 第二步：创建动画关键帧块 */
+        /* 第一步：创建动画关键帧块 */
         /* CSS动画需要使用 @keyframes 规则来定义并命名一个关键帧序列，然后再通过 animation-* 属性将该序列连接到一个或多个规则 */
-        /* 声明一个关键帧序列名为 roll（不要是CSS中的关键字），通过关键帧选择符来选择时间点（即表示进度的百分比） */
+        /* 声明一个关键帧序列名为 roll（不要是CSS中的关键字），通过关键帧选择符来选择时间点（关键帧选择符即表示进度的百分比） */
+        /* 这个关键帧仅仅是实现了以右下角旋转，每次关键帧开始执行的时候，先将方块移动到-100%位置，然后旋转之后正好回到原位置，重复3次 */
         @keyframes roll {
             from {
                 transform: translateX(-100%);
@@ -56,9 +49,23 @@
                 transform: translateX(-100%) rotate(90deg);
             }
         }
+        /* 声明一个关键帧序列名为 shift，这个关键帧是用来实现从左向右移动，从初始位置-300%开始 */
+        @keyframes shift {
+            from {
+                transform: translateX(-300%);
+            }
+            /* 因为移动从-300%位置开始，到初始位置结束，所以这里省略了 to 关键帧 */
+        }
 
-        /* 第三步：将关键帧块连接到元素 */
-        .logo-box {
+        /* 第二步：将关键帧块连接到元素 */
+        .box-inner {
+            /* 元素的基本样式 */
+            display: inline-block;
+            width: .74em;
+            height: .74em;
+            background-color: #663399;
+
+            /* 将关键帧块连接到元素 */
             /* 动画名称 */
             animation-name: roll;
             /* 动画时长 */
@@ -78,18 +85,20 @@
             /* 让小方块的旋转中心点位于右下角 */
             transform-origin: bottom right;
         }
-
-        /* ********** 敬礼 ********** */
-        /* ********** 文件上传 ********** */
-        /* ********** 翻牌子 ********** */
-
+        .box-outer {
+            display: inline-block;
+            /* 让平移的关键帧分三步总耗时4.5s（正好是旋转关键帧的3倍）从左往右移动，每1.5s移动一个边长的距离，也正好旋转一次，从而让移动和旋转两种运动融合起来，视觉上看就像是方块滚动向前 */
+            animation: shift 4.5s 1s steps(3, start) backwards;
+        }
     </style>
 </head>
 
 <body>
-    <h1 class="logo">
-        <span class="logo-box"></span>
-        <span class="logo-text">Box</span>
+    <h1 class="box">
+        <span class="box-outer">
+            <span class="box-inner"></span>
+        </span>
+        <span class="box-text">Box</span>
     </h1>
 </body>
 
