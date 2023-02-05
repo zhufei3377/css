@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>动画-文件上传</title>
+    <style>
+        body {
+            background-color: #edf5f8;
+            margin: 0;
+            padding: 1em;
+        }
+        button {
+            margin-top: 2em;
+            cursor: pointer;
+            border: 0;
+            padding: .5em 1em;
+            color: #fff;
+            border-radius: .25em;
+            outline: none;
+            font-size: 1em;
+            background-color: #173b6d;
+            transition: all 150ms ease-in;
+        }
+        button:active {
+            transform: translateY(.25em);
+        }
+        .upload {
+            display: flex; 
+            justify-content: space-between;
+            height: 100px;
+            width: 400px;
+            background-color: rgba(0,0,0,0.1);
+            padding: 1em;
+            border-radius: .5em;
+            transform: translateZ(0);
+        }
+        .icon {
+            width: 4em;
+            background: none no-repeat 50% 50%/contain;
+        }
+        .computer-icon {
+            background-image: url(images/monitor.svg);
+        }
+        .file-icon {
+            animation: jump 2s ease-in-out infinite;
+            background-image: url(images/file.svg);
+        }
+        .server-icon {
+            position: relative;
+            z-index: 2;
+            background-image: url(images/cloud_storage.svg);
+        }
+        .file-icon.is-paused {
+            animation-play-state: paused;
+        }
+        .file-icon.is-stopped {
+            display: none;
+            animation-play-state: paused;
+        }
+        .file-icon.is-stopped + .server-icon::after {
+            content: '';
+            display: block;
+            width: 3em;
+            height: 3em;
+            background: url(images/checkmark.svg) 50% 50% no-repeat;
+            background-size: contain;
+            position: absolute;
+            bottom: 1.5em;
+            left: 60%;
+        }
+
+        /* 开始关键帧将文件图标向左平移170px，正好跟计算机图标重合 */
+        /* 第二个关键帧先把元素旋转175度（几乎反转了），然后再x轴平移170px（这时x轴的-170px几乎就是向上稍微偏右移动），然后再旋转-175度使得文件图标看起来不颠倒，最后图标缩小一倍 */
+        @keyframes jump {
+            from {
+                transform:  rotate(0deg) translateX(-170px) rotate(0deg)  scale(1);
+            }
+            70%, 100% {
+                transform: rotate(175deg) translateX(-170px) rotate(-175deg) scale(0.5);
+                /* 旋转角度，平移距离和目标位置都是紧密相关的，具体实现需求时需要规划和调试 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>文件上传动画</h1>
+    <div class="upload">
+        <div class="icon computer-icon"></div>
+        <div class="icon file-icon is-paused"></div>
+        <div class="icon server-icon"></div>
+    </div>
+    <button type="button" class="button-pause">播放/暂停</button>
+    <button type="button" class="button-stop">完成/重启</button>
+    <script>
+        var icon = document.querySelector('.file-icon');
+        var pause = document.querySelector('.button-pause');
+        var stop = document.querySelector('.button-stop');
+
+        function toggleAnimation() {
+            if (icon.classList.contains('is-stopped')) {
+                icon.classList.remove('is-stopped');
+            } else {
+                icon.classList.add('is-stopped');
+            }
+        }
+        function pauseAnimation() {
+            icon.classList.toggle('is-paused');
+        }
+        pause.addEventListener('click', pauseAnimation, false);
+        stop.addEventListener('click', toggleAnimation, false);
+    </script>
+</body>
+</html>
