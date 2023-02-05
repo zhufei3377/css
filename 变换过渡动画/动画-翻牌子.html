@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>动画-翻牌子</title>
+    <script src="js/modernizr.js"></script>
+    <style>
+        /* 基本样式 */
+        body {
+            background-color: #EDF5F8;
+            margin: 0;
+            padding: 1em;
+        }
+        button {
+            display: inline-block;
+            cursor: pointer;
+            margin-top: 10px;
+            padding: .25em 1em;
+            color: #fff;
+            border-radius: .25em;
+            font-size: 12px;
+            background-color: #173b6d;
+            background-image: linear-gradient(to bottom, #1a4a8e, #173b6d);
+            transition: all 150ms ease-in;
+        }
+        button:focus {
+            background-color: #2158a9;
+            background-image: linear-gradient(to bottom, #2063c0, #1d4d90);
+        }
+        button:active {
+            transform: translateY(.25em);
+        }
+        .menu-wrapper {
+            min-width: 9em;
+            max-width: 25em;
+        }
+        .menu {
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        .menu-settings {
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #eee;
+            margin: 10px 0 0;
+        }
+        .menu-list li {
+            border-bottom: 1px solid #ccc;
+            line-height: 1.5;
+        }
+        .checkboxes {
+            list-style: none;
+            padding: 0;
+        }
+        .checkboxes li {
+            margin-bottom: .5em;
+        }
+
+        /* 三维翻转样式 */
+        .csstransforms3d.classlist body {
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
+        }
+        .csstransforms3d.classlist .flip-wrapper {
+            position: relative;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-transition: -webkit-transform .25s ease-in-out;
+            -moz-transition: -moz-transform .25s ease-in-out;
+            transition: transform .85s ease-in-out;
+            -webkit-transform: rotateY(0);
+            -moz-transform: rotateY(0);
+            transform: rotateY(0);
+        }
+        .csstransforms3d.classlist .flip-b,
+        .csstransforms3d.classlist .flip-a {
+            box-sizing: border-box;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .csstransforms3d.classlist .flip-b {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: 0;
+            -webkit-transform: rotateY(-180deg);
+            -moz-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+        }
+        .csstransforms3d.classlist .flip-wrapper.is-flipped {
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
+        .csstransforms3d.classlist .flip-enabled {
+            visibility: visible;
+        }
+        .csstransforms3d.classlist .flip-disabled {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="flip-wrapper menu-wrapper">
+        <div class="flip-a menu">
+            <h1 class="menu-heading">F1 车队</h1>
+            <ol class="menu-list">
+                <li>梅赛德斯</li>
+                <li>红牛</li>
+                <li>法拉利</li>
+                <li>阿斯顿马丁</li>
+                <li>雷诺</li>
+                <li>迈凯轮</li>
+                <li>阿尔法罗密欧</li>
+                <li>小红牛</li>
+                <li>威廉姆斯</li>
+                <li>哈斯</li>
+            </ol>
+        </div>
+        <div class="flip-b menu-settings">
+            <h2>选择三大车队</h2>
+            <ul class="checkboxes">
+                <li>
+                    <input type="checkbox" checked name="meat" id="checkbox-benz">
+                    <label for="checkbox-benz">梅赛德斯</label>
+                </li>
+                <li>
+                    <input type="checkbox" checked name="fish" id="checkbox-redbull">
+                    <label for="checkbox-redbull">红牛</label>
+                </li>
+                <li>
+                    <input type="checkbox" checked name="veg" id="checkbox-ferrari">
+                    <label for="checkbox-ferrari">法拉利</label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <button class="toggle-button">翻转一下</button>
+
+    <script>
+        var flipWrapper = document.querySelector('.flip-wrapper');
+        var toggleButton = document.querySelector('.toggle-button');
+
+        function toggleAnimation() {
+            flipWrapper.classList.toggle('is-flipped');
+            // 使用下面的方式也可以
+            // if (flipWrapper.classList.contains('is-flipped')) {
+            //     flipWrapper.classList.remove('is-flipped');
+            // } else {
+            //     flipWrapper.classList.add('is-flipped');
+            // }
+        }
+        toggleButton.addEventListener('click', toggleAnimation);
+    </script>
+</body>
+</html>
