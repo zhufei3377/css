@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>半透明边框</title>
+    <style>
+        /* 半透明颜色：rgba 和 hsla */
+        /* rgba：红色（0～255），绿色（0～255），蓝色（0～255），透明度（0～1或0%～100%） */
+        /* hsla：色调（0～360），饱和度（0%～100%），亮度（0%～100%），透明度（0～1或0%～100%） */
+        .box {
+            width: 600px;
+            height: 300px;
+            background: bisque;
+            /* 默认情况下背景会延伸到边框所在区域的下层，这意味着如果使用了半透明的边框，那么背景色会透过边框，然后和边框本身的颜色融合之后生成新的颜色展示出来 */
+            /* 比如本例，实际展示出来的边框颜色是 bisque 和 rgba(0, 255, 0, 0.5)融合之后的颜色 */
+            /* border: 10px solid hsla(0, 0%, 100%, 0.5); */
+            border: 10px solid rgba(0, 255, 0, 0.5);
+
+            /* 如果不想让背景色污染边框本身的颜色，可以使用 background-clip 属性裁剪掉延伸到边框区域下方的背景 */
+            /* background-clip 属性默认值是 border-box，即背景会被边框的外边沿裁剪掉。本例可以设置为 padding-box 裁剪掉内边距外边沿以外的背景，从而使得边框显示纯正的半透明绿色 */
+            background-clip: padding-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        Box
+    </div>
+</body>
+
+</html>
