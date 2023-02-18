@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>多重边框</title>
+    <style>
+        /* 多重边框实现方案：1、使用多个元素模拟多重边框；2、使用 box-shadow 方案；3、使用 outline 方案 */
+        /* 使用多个元素模拟多重边框 */
+        /* 优点：两重边框之间可以有一定的距离 */
+        /* 缺点：增加额外的html元素，使得元素结构复杂 */
+        .outer-box {
+            width: 310px;
+            height: 210px;
+            margin: 50px auto;
+            border: 2px solid bisque;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .inner-box {
+            width: 300px;
+            height: 200px;
+            border: 2px solid bisque;
+        }
+
+        /* 使用 box-shadow 方案 */
+        .shadow-solution {
+            width: 300px;
+            height: 200px;
+            margin: 50px auto;
+
+            /* box-shadow(x轴偏移量, y轴偏移量, 模糊半径, 扩展半径, 颜色, 投影方式) */
+            /* 一个正值的扩展半径加两个为0的偏移量以及为0的模糊值得到的投影就是一条实线边框，并且 box-shadow 支持层层叠加，用逗号分隔 */
+            /* 优点：可以创建任意多重边框 */
+            /* 缺点：多层投影之间不能添加空距，即不能像上述例子两个边框之间距离5px；也不能产生虚线边框 */
+            box-shadow: 0 0 0 10px bisque, 0 0 0 20px deeppink;
+        }
+
+        /* 使用 outline 方案 */
+        .outline-solution {
+            width: 300px;
+            height: 200px;
+            margin: 50px auto;
+
+            /* 优点：结构简单，可以产生虚线边框 */
+            /* 缺点：只能产生两层边框，而且两层边框之间不能添加空距 */
+            border: 10px solid bisque;
+            outline: 10px solid deeppink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer-box">
+        <div class="inner-box">使用多个元素模拟多重边框</div>
+    </div>
+
+    <div class="shadow-solution">
+        使用 box-shadow 方案
+    </div>
+
+    <div class="outline-solution">
+        使用 outline 方案
+    </div>
+</body>
+
+</html>
