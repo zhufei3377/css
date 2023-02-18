@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>灵活的背景定位</title>
+    <style>
+        /* 很多时候我们想针对容器的某个角（左上角、左下角、右上角、右下角）对背景图片做偏移定位可以使用 background-position 属性 */
+        .container {
+            width: 200px;
+            height: 200px;
+            background: url(monitor.svg) no-repeat #58a;
+            /* 将背景图片定位到距离容器右下角20px的位置 */
+            background-position: right 20px bottom 20px;
+        }
+
+        /* 还有一种常见的场景：针对容器的某个角对背景图片做偏移定位，并且要求偏移量和容器的内边距一致。这时候可以使用 background-origin 属性 */
+        .container2 {
+            margin-top: 50px;
+            width: 200px;
+            height: 200px;
+            /* 容器整体内边距为20px，background-position默认是以padding-box为准的（即background中的right bottom），可以通过设置 background-origin 改变这种默认行为 */
+            padding: 20px;
+            background: url(monitor.svg) no-repeat #58a right bottom;
+            /* 这里修改的了background-position的计算盒子为content-box，则对容器整体的padding: 20px也会作用于偏移量 */
+            background-origin: content-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"></div>
+    <div class="container2"></div>
+</body>
+
+</html>
