@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>伪随机背景</title>
+    <style>
+        div {
+            height: 200px;
+            margin-bottom: 10px;
+        }
+        .bak1 {
+            /* 把各个贴片的尺寸设置成互质的，可以增加条纹平铺的随机性（蝉原则） */
+            /* 如下代码平铺规律为每隔 41*61*83=207583px 像素时才会循环一次 */
+            background: hsl(20, 40%, 90%);
+            background-image: linear-gradient(90deg, #fb3 11px, transparent 0), 
+                              linear-gradient(90deg, #ab4 23px, transparent 0),
+                              linear-gradient(90deg, #655 41px, transparent 0);
+            background-size: 41px 100%, 61px 100%, 83px 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bak1"></div>
+</body>
+
+</html>
