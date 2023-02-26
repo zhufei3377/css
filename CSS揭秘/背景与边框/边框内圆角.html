@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>边框内圆角</title>
+    <style>
+        /* 有时候我们需要一个容器，只在内侧有圆角，而边框的四个角依然保持直角。可以用两个元素实现这个效果 */
+        .container {
+            background: #655;
+            padding: 0.8em;
+        }
+        .container > div {
+            background: tan;
+            border-radius: 0.8em;
+            padding: 1em;
+        }
+        /* 只用一个元素可以做到吗？可以做到，但是没有使用两个元素的方案灵活（可以充分运用背景的能力） */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div>I have a nice subtle inner rounding, don't I look pretty?</div>
+    </div>
+</body>
+
+</html>

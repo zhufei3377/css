@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>条纹背景</title>
+    <style>
+        /* 背景知识：线性渐变 */
+        div {
+            height: 200px;
+            margin-bottom: 10px;
+        }
+        .stripe1 {
+            /* 基本的垂直线性渐变 */
+            background: linear-gradient(#fb3, #58a);
+        }
+        .stripe2 {
+            /* 将色标拉近一点，顶部20%区域填充为 #fb3 实色，底部20%的区域填充为 #58a 实色。真正的渐变只出现在中间60%的高度区域 */
+            background: linear-gradient(#fb3 20%, #58a 80%);
+        }
+        .stripe3 {
+            /* 将色标拉近到相同位置，渐变会消失 */
+            background: linear-gradient(#fb3 50%, #58a 50%);
+        }
+        .stripe4 {
+            background: linear-gradient(#fb3 20%, #58a 80%);
+            background-size: 100% 30px;
+        }
+        .stripe5 {
+            background: linear-gradient(#fb3 50%, #58a 50%);
+            background-size: 100% 30px;
+        }
+        .stripe6 {
+            /* 如果把第二个色标的位置设置为0，那么它的位置总是会被浏览器调整为前一个色标的位置 */
+            background: linear-gradient(#fb3 50%, #58a 0);
+            background-size: 100% 45px;
+        }
+        .stripe7 {
+            /* 三种颜色 */
+            background: linear-gradient(#fb3 33.3%, #58a 0, #58a 66.6%, yellowgreen 0);
+            background-size: 100% 45px;
+        }
+        .stripe8 {
+            /* 垂直条纹（渐变），这里的 to right 可以改为 90deg，效果一样 */
+            background: linear-gradient(to right, #fb3 20%, #58a 80%);
+            background-size: 30px 100%;
+        }
+        .stripe9 {
+            /* 垂直条纹（突变） */
+            background: linear-gradient(to right, #fb3 50%, #58a 50%);
+            background-size: 30px 100%;
+        }
+        .stripe10 {
+            /* 斜向条纹失败案例：只把渐变角度调整为45deg不会正确生成斜向条纹。失败原因：一个斜向条纹需要三条渐变线将容器分割成4个斜向的条块，本例只有一条渐变线 */
+            background: linear-gradient(45deg, #fb3 50%, #58a 50%);
+            /* 生成横向的类似锯齿状条纹 */
+            background-size: 30px 100%;
+            /* 生成纵向的类似锯齿状条纹 */
+            background-size: 100% 30px;
+            /* 生成单个30*30的斜向渐变的小方格铺满页面 */
+            background-size: 30px 30px;
+        }
+        .stripe11 {
+            /* 斜向条纹 */
+            background: linear-gradient(45deg, #fb3 25%, #58a 25%, #58a 50%, #fb3 50%, #fb3 75%, #58a 75%);
+            /* 也可以写成如下 */
+            background: linear-gradient(45deg, #fb3 25%, #58a 0, #58a 50%, #fb3 0, #fb3 75%, #58a 0);
+            background-size: 45px 45px;
+        }
+        .stripe12 {
+            /* 更好的斜向条纹（改变角度条纹不会乱掉）使用 repeating-linear-gradient 属性，可以使色标无限循环直到填满整个页面 */
+            /* background: repeating-linear-gradient(45deg, #fb3, #58a, 30px); */
+            /* 等价于如下 */
+            /* background: linear-gradient(45deg,
+                        #fb3, #58a 30px,
+                        #fb3 30px, #58a 60px,
+                        #fb3 60px, #58a 90px,
+                        #fb3 90px, #58a 120px,
+                        ...
+                        ); */
+            /* 随意改变角度都不会乱掉 */
+            background: repeating-linear-gradient(60deg, #fb3, #fb3 15px, #58a 0, #58a 30px);
+        }
+        .stripe13 {
+            /* 灵活的同色系条纹：通常做法将最深的颜色指定为背景，同时将白色半透明条纹叠加在背景之上 */
+            background: #58a;
+            background-image: repeating-linear-gradient(60deg, hsla(0, 0%, 100%, 0.1), hsla(0, 0%, 100%, 0.1) 15px, transparent 0, transparent 30px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stripe1"></div>
+    <div class="stripe2"></div>
+    <div class="stripe3"></div>
+    <div class="stripe4"></div>
+    <div class="stripe5"></div>
+    <div class="stripe6"></div>
+    <div class="stripe7"></div>
+    <div class="stripe8"></div>
+    <div class="stripe9"></div>
+    <div class="stripe10"></div>
+    <div class="stripe11"></div>
+    <div class="stripe12"></div>
+    <div class="stripe13"></div>
+</body>
+
+</html>
