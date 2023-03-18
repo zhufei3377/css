@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>三角形</title>
+    <style>
+        div {
+            margin: 30px;
+        }
+
+        /* 这里仅介绍使用border属性生成三角形，除此之外还可以使用渐变linear-gradient和clip-path生成三角形 */
+        /* 边框的奥秘：html元素如果元素宽高大于边框宽度，那么这时的边框实际上是四条等腰梯形（因为相邻的边框要相互拼成一个矩形的方格子），如下： */
+        .graph1 {
+            width: 200px;
+            height: 200px;
+            border: 20px solid;
+            border-color: orangered skyblue gold yellowgreen;
+        }
+
+        /* 如果html元素的宽高为0，那么相邻边框会不重合延长最终相交于一点，形成四个三角形区域，如下： */
+        .graph2 {
+            width: 0px;
+            height: 0px;
+            border: 100px solid;
+            border-color: orangered skyblue gold yellowgreen;
+        }
+
+        /* 向上三角形 */
+        .graph3 {
+            width: 0px;
+            height: 0px;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 100px solid skyblue;
+        }
+
+        /* 向下三角形 */
+        .graph4 {
+            width: 0px;
+            height: 0px;
+            border-top: 100px solid skyblue;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+        }
+
+        /* 向左三角形 */
+        .graph5 {
+            width: 0px;
+            height: 0px;
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid transparent;
+            border-right: 100px solid skyblue;
+        }
+
+        /* 向右三角形 */
+        .graph6 {
+            width: 0px;
+            height: 0px;
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid transparent;
+            border-left: 100px solid skyblue;
+        }
+
+        /* 直角三角形（左上角直角） */
+        .graph7 {
+            width: 0px;
+            height: 0px;
+            border-top: 100px solid skyblue;
+            border-right: 100px solid transparent;
+        }
+
+        /* 直角三角形（右上角直角） */
+        .graph8 {
+            width: 0px;
+            height: 0px;
+            border-top: 100px solid skyblue;
+            border-left: 100px solid transparent;
+        }
+
+        /* 直角三角形（右下角直角） */
+        .graph9 {
+            width: 0px;
+            height: 0px;
+            border-bottom: 100px solid skyblue;
+            border-left: 100px solid transparent;
+        }
+
+        /* 直角三角形（左下角直角） */
+        .graph10 {
+            width: 0px;
+            height: 0px;
+            border-bottom: 100px solid skyblue;
+            border-right: 100px solid transparent;
+        }
+
+        /* 等边三角形 */
+        .graph11 {
+            width: 0px;
+            height: 0px;
+            border-left: 69px solid transparent;
+            border-right: 69px solid transparent;
+            border-bottom: 120px solid skyblue;
+        }
+
+        /* 弹出框空心箭头 */
+        .graph12 {
+            width: 0px;
+            height: 0px;
+            position: absolute;
+        }
+
+        .graph12::before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            border-bottom: 100px solid #fb3;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+        }
+
+        .graph12::after {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 2px;
+            left: 0px;
+            border-bottom: 100px solid white;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="graph1"></div>
+    <div class="graph2"></div>
+    <div class="graph3"></div>
+    <div class="graph4"></div>
+    <div class="graph5"></div>
+    <div class="graph6"></div>
+    <div class="graph7"></div>
+    <div class="graph8"></div>
+    <div class="graph9"></div>
+    <div class="graph10"></div>
+    <div class="graph11"></div>
+    <div class="graph12"></div>
+</body>
+
+</html>
