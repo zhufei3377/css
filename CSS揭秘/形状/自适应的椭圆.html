@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>自适应的椭圆</title>
+    <style>
+        /* 圆形：给任何正方形（宽高相等）元素设置一个足够大的 border-radius 就可以把它们变成圆形 */
+        .oval1 {
+            background: #fb3;
+            width: 200px;
+            height: 200px;
+            /* 指定任何大于等于100px的半径依然会得到一个圆形 */
+            border-radius: 100px;
+            border-radius: 120px;
+            border-radius: 50%;
+            border-radius: 60%;
+        }
+
+        /* 自适应的椭圆：当元素的宽高相等时，显示为一个圆形；当元素的宽高不相等时，显示为一个椭圆 */
+        .oval2 {
+            background: #fb3;
+            width: 300px;
+            height: 200px;
+            border-radius: 50%;
+        }
+
+        /* 半椭圆 */
+        .oval3 {
+            background: #fb3;
+            width: 200px;
+            height: 200px;
+            /* 斜杠前面的表示水平方向四个角，斜杠后面表示垂直方向四个角；顺序都是从左上角开始，顺时针依次 */
+            border-radius: 50% / 100% 100% 0 0;
+        }
+        .oval4 {
+            background: #fb3;
+            width: 200px;
+            height: 200px;
+            border-radius: 100% 0 0 100% / 50%;
+        }
+        .oval5 {
+            background: #fb3;
+            width: 200px;
+            height: 200px;
+            border-radius: 0 100% 100% 0 / 50%;
+        }
+        .oval6 {
+            background: #fb3;
+            width: 200px;
+            height: 200px;
+            border-radius: 50% / 0 0 100% 100%;
+        }
+
+        /* 四分之一椭圆 */
+        .oval7 {
+            background: #fb3;
+            width: 200px;
+            height: 200px;
+            border-radius: 100% 0 0 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="oval1"></div>
+    <div class="oval2"></div>
+    <div class="oval3"></div>
+    <div class="oval4"></div>
+    <div class="oval5"></div>
+    <div class="oval6"></div>
+    <div class="oval7"></div>
+</body>
+
+</html>

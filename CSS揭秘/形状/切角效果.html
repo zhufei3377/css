@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>切角效果</title>
+    <style>
+        div {
+            margin: 10px 0px;
+        }
+
+        /* 使用线性渐变实现右下角切角效果 */
+        .graph1 {
+            width: 200px;
+            height: 200px;
+            background: #58a;
+            background: linear-gradient(-45deg, transparent 15px, #58a 0);
+        }
+
+        /* 左下角和右下角切角 */
+        .graph2 {
+            width: 200px;
+            height: 200px;
+            background: #58a;
+            background: linear-gradient(-45deg, transparent 15px, #58a 0) right,
+                        linear-gradient(45deg, transparent 15px, #58a 0) left;
+            background-size: 50% 100%;
+            background-repeat: no-repeat;
+        }
+
+        /* 当切角效果在元素某一侧并且切角尺寸正好达到宽度的50%时，就会得到一个箭头 */
+        .graph3 {
+            width: 200px;
+            height: 200px;
+            background: #58a;
+            background: linear-gradient(-45deg, transparent 100px, #58a 0) right,
+                        linear-gradient(45deg, transparent 100px, #58a 0) left;
+            background-size: 50% 100%;
+            background-repeat: no-repeat;
+        }
+        .graph4 {
+            width: 400px;
+            height: 200px;
+            background: #58a;
+            background: linear-gradient(-135deg, transparent 100px, #58a 0) top right,
+                        linear-gradient(-45deg, transparent 100px, #58a 0) bottom right;
+            background-size: 100% 50%;
+            background-repeat: no-repeat;
+        }
+
+        /* 四个角都切角 */
+        .graph5 {
+            width: 200px;
+            height: 200px;
+            background: #58a;
+            background: linear-gradient(135deg, transparent 15px, #58a 0) top left,
+                        linear-gradient(-135deg, transparent 15px, #58a 0) top right,
+                        linear-gradient(-45deg, transparent 15px, #58a 0) bottom right,
+                        linear-gradient(45deg, transparent 15px, #58a 0) bottom left;
+            background-size: 50% 50%;
+            background-repeat: no-repeat;
+        }
+        .graph6 {
+            width: 200px;
+            height: 200px;
+            background: #58a;
+            background: linear-gradient(135deg, transparent 50%, #58a 0) top left,
+                        linear-gradient(-135deg, transparent 50%, #58a 0) top right,
+                        linear-gradient(-45deg, transparent 50%, #58a 0) bottom right,
+                        linear-gradient(45deg, transparent 50%, #58a 0) bottom left;
+            background-size: 50% 50%;
+            background-repeat: no-repeat;
+        }
+
+        /* 弧形切角 */
+        .graph7 {
+            width: 200px;
+            height: 200px;
+            background: #fb3;
+            background: radial-gradient(circle at top left, transparent 15px, #fb3 0) top left,
+                        radial-gradient(circle at top right, transparent 15px, #fb3 0) top right,
+                        radial-gradient(circle at bottom right, transparent 15px, #fb3 0) bottom right,
+                        radial-gradient(circle at bottom left, transparent 15px, #fb3 0) bottom left;
+            background-size: 50% 50%;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="graph1"></div>
+    <div class="graph2"></div>
+    <div class="graph3"></div>
+    <div class="graph4"></div>
+    <div class="graph5"></div>
+    <div class="graph6"></div>
+    <div class="graph7"></div>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>平行四边形</title>
+    <style>
+        /* 使用 transform: skewX(-45deg) 形变对矩形拉伸形成平行四边形，但是内容也会被拉伸。可以采用如下两种方案解决这个问题 */
+
+        /* 嵌套元素方案：对内容再应用一次反向的 skew() 变形，从而抵消容器的变形 */
+        .btn-container {
+            margin: 0 auto;
+            width: 100px;
+            height: 50px;
+            background: #fb3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: skewX(-45deg);
+        }
+        .btn {
+            transform: skewX(45deg);
+        }
+
+        /* 伪元素方案：把所有样式（背景，边框等）应用到伪元素上，然后再对伪元素进行变形 */
+        .btn2 {
+            position: relative;
+            margin: 20px auto;
+            width: 100px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+            background: #fb3;
+            transform: skewX(-45deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="btn-container">
+        <div class="btn">Click me</div>
+    </div>
+    <div class="btn2">
+        Click me
+    </div>
+</body>
+
+</html>
