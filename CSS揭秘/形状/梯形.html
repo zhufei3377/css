@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>梯形</title>
+    <style>
+        div {
+            margin: 30px auto;
+        }
+
+        /* 实现梯形的方案有两种：1、给矩形的两边加上直角三角形；2、使用3D旋转将一个矩形在3维空间旋转，由于透视的关系，我们最终看到的就是一个梯形 */
+        /* 方案一 */
+        .tab1 {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            background: #fb3;
+            position: relative;
+        }
+        .tab1::before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 0px;
+            left: -200px;
+            border-bottom: 200px solid #fb3;
+            border-left: 200px solid transparent;
+        }
+        .tab1::after {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 0px;
+            left: 200px;
+            border-bottom: 200px solid #fb3;
+            border-right: 200px solid transparent;
+        }
+
+        /* 方案二 */
+        .tab2 {
+            position: relative;
+            display: inline-block;
+            padding: .5em 1em .35em;
+            color: white;
+        }
+        .tab2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+            background: #fb3;
+            transform: perspective(.5em) rotateX(5deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab1">我是一个梯形</div>
+    <div class="tab2">I am a trapezoid.</div>
+</body>
+
+</html>
