@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>简单的饼图</title>
+    <style>
+        /* 基于 transform 的解决方案 */
+        /* 思路：把圆形的左右两半部分指定为两种颜色，使用伪元素覆盖颜色，通过旋转来决定露出多大的扇区 */
+        .pie1 {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: yellowgreen;
+            background-image: linear-gradient(to right, transparent 50%, #655 0);
+        }
+        /* 这个伪元素承担0%～50%比率的旋转，超过50%之后，顶部宿主的绿色背景会露出来 */
+        .pie1::before {
+            content: '';
+            display: block;
+            margin-left: 50%;
+            height: 100%;
+            /* 伪元素设置为半圆形，背景颜色继承宿主背景色，旋转中心为左边缘中心点left（也可写为：transform-origin: 0 50%） */
+            border-radius: 0 100% 100% 0 / 50%;
+            background-color: inherit;
+            transform-origin: left;
+            transform: rotate(0.2turn);
+        }
+        /* 这个伪元素展示50%～100%比率的旋转，即（50%～100%）- 50% 的值，如果需要旋转的比率小于等于50%，则不需要该伪元素 */
+        /* .pie1::before {
+            content: '';
+            display: block;
+            margin-left: 50%;
+            height: 100%;
+            border-radius: 0 100% 100% 0 / 50%;
+            background-color: #655;
+            transform-origin: left;
+            transform: rotate(0.1turn);
+        } */
+
+        /* 实现一个饼图从0%～100%比率的动画 */
+        .pie2 {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: yellowgreen;
+            background-image: linear-gradient(to right, transparent 50%, #655 0);
+        }
+        @keyframes spin {
+            to { transform: rotate(.5turn); }
+        }
+        @keyframes bg {
+            50% { background: #655; }
+        }
+        .pie2::before {
+            content: '';
+            display: block;
+            margin-left: 50%;
+            height: 100%;
+            border-radius: 0 100% 100% 0 / 50%;
+            background-color: inherit;
+            transform-origin: left;
+            animation: spin 3s linear infinite, bg 6s step-end infinite;
+        }
+
+        /* 使用内联样式实现支持多种不同比率的静态饼图：思路：使用暂停状态的动画可以将内联样式设置到伪元素上 */
+        /* animation-delay：一个负数的动画延时值是合法的，与0s的延时类似，负数的延时值意味着动画会立即快进到延时值的绝对值处，就好像动画已经播放了指定时间一样 */
+        .pie3 {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: yellowgreen;
+            background-image: linear-gradient(to right, transparent 50%, #655 0);
+        }
+        .pie3::before {
+            content: '';
+            display: block;
+            margin-left: 50%;
+            height: 100%;
+            border-radius: 0 100% 100% 0 / 50%;
+            background-color: inherit;
+            transform-origin: left;
+            animation: spin 50s linear infinite, bg 100s step-end infinite;
+            animation-play-state: paused;
+            /* 这里继承了内联样式中的animation-delay，实现了内联样式设置到伪元素中 */
+            animation-delay: inherit;
+        }
+
+        /* 基于 svg 的解决方案（推荐） */
+        /* 这部分是公共svg样式包括手写svg和js代码生成的svg */
+        circle {
+            fill: yellowgreen;
+            stroke: #655;
+            stroke-width: 32;
+        }
+        svg {
+            width: 200px;
+            height: 200px;
+            transform: rotate(-90deg);
+            background: yellowgreen;
+            border-radius: 50%;
+        }
+        .manual {
+            /* 这部分是手写svg标签独有的样式 */
+            /* 虚线描边线段长度设置为30，表示可以得到比率为30%的饼图 */
+            /* 虚线间隙设置为100，因为我们设置的svg圆形周长约为100（需要设置大于等于圆形周长的值） */
+            stroke-dasharray: 30 100;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pie1"></div>
+    <div class="pie2"></div>
+    <!-- 相当于我们定义了一个公共的饼图组件，将负的延时秒数（以-20s为例）传入内联样式的animation-delay属性，就会得到20%的饼图 -->
+    <div class="pie3" style="animation-delay: -20s;"></div>
+    <div class="pie3" style="animation-delay: -60s;"></div>
+    <div class="pie3" style="animation-delay: -90s;"></div>
+    
+    <!-- 给圆形设置一个特殊的半径，使圆形的周长无限接近100，100/（2派）约等于16，可作为一个模版 -->
+    <svg viewBox="0 0 32 32">
+        <circle class="manual" r="16" cx="16" cy="16">
+    </svg>
+    <div class="svgPie">20%</div>
+    <div class="svgPie">60%</div>
+
+    <script>
+        const elArr = document.getElementsByClassName("svgPie");
+        for (const el of elArr) {
+            const p = parseFloat(el.textContent);
+            const ns = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(ns, "svg");
+            const circle = document.createElementNS(ns, "circle");
+            const title = document.createElementNS(ns, "title");
+            circle.setAttribute("r", 16);
+            circle.setAttribute("cx", 16);
+            circle.setAttribute("cy", 16);
+            circle.setAttribute("stroke-dasharray", p + " 100");
+            svg.setAttribute("viewBox", "0 0 32 32");
+            title.textContent = el.textContent;
+            el.textContent = "";
+            svg.appendChild(title);
+            svg.appendChild(circle);
+            el.appendChild(svg);
+        }
+    </script>
+</body>
+
+</html>
